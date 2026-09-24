@@ -1,0 +1,3 @@
+#!/bin/sh
+# Fake AIX oslevel -s
+echo "7200-05-03-2148"

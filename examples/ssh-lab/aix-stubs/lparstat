@@ -1,0 +1,11 @@
+#!/bin/sh
+# Fake AIX lparstat -i (subset)
+cat <<'EOF'
+Node Name                                   : aix-stub
+Partition Name                              : dsh-lab
+Partition Number                            : 1
+Type                                        : Shared-SMT-4
+Mode                                        : Uncapped
+Entitled Capacity                           : 0.50
+Online Memory                               : 8192 MB
+EOF

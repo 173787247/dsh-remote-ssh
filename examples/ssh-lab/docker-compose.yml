@@ -1,0 +1,32 @@
+# dsh-remote-ssh local lab (Docker)
+#
+# From Windows (Docker Desktop):
+#   cd dsh-remote-ssh/examples/ssh-lab
+#   docker compose up -d --build
+#   .\print-hosts.ps1
+#
+# From WSL (if docker.exe on PATH):
+#   docker.exe compose up -d --build
+
+services:
+  linux-lab:
+    build:
+      context: .
+      dockerfile: Dockerfile.linux
+    container_name: dsh-linux-lab
+    ports:
+      - "2222:22"
+    volumes:
+      - ./keys/authorized_keys:/tmp/lab_authorized_keys:ro
+    restart: unless-stopped
+
+  aix-stub:
+    build:
+      context: .
+      dockerfile: Dockerfile.aix-stub
+    container_name: dsh-aix-stub
+    ports:
+      - "2223:22"
+    volumes:
+      - ./keys/authorized_keys:/tmp/lab_authorized_keys:ro
+    restart: unless-stopped

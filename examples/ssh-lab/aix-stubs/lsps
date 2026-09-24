@@ -1,0 +1,6 @@
+#!/bin/sh
+# Fake AIX lsps -a
+cat <<'EOF'
+Page Space      Physical Volume   Volume Group    Size %Used Active  Auto  Type
+hd6             hdisk0            rootvg         8192MB     1   yes   yes    lv
+EOF

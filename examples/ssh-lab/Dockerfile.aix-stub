@@ -1,0 +1,29 @@
+FROM debian:bookworm-slim
+
+# Same SSH base as linux-lab, plus fake AIX CLI stubs for allowlist testing.
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends openssh-server sudo ca-certificates \
+  && rm -rf /var/lib/apt/lists/* \
+  && mkdir -p /var/run/sshd /home/dshprobe/.ssh /usr/local/aix-stub \
+  && useradd -m -s /bin/bash dshprobe \
+  && echo 'dshprobe ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/dshprobe \
+  && chmod 440 /etc/sudoers.d/dshprobe \
+  && chown -R dshprobe:dshprobe /home/dshprobe/.ssh \
+  && chmod 700 /home/dshprobe/.ssh \
+  && sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config \
+  && sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config \
+  && echo 'AllowUsers dshprobe' >> /etc/ssh/sshd_config
+
+COPY aix-stubs/ /usr/local/aix-stub/
+RUN chmod +x /usr/local/aix-stub/* \
+  && ln -sf /usr/local/aix-stub/oslevel /usr/local/bin/oslevel \
+  && ln -sf /usr/local/aix-stub/errpt /usr/local/bin/errpt \
+  && ln -sf /usr/local/aix-stub/lsps /usr/local/bin/lsps \
+  && ln -sf /usr/local/aix-stub/lparstat /usr/local/bin/lparstat \
+  && echo 'export PATH=/usr/local/bin:$PATH' >> /home/dshprobe/.bashrc
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 22
+CMD ["/entrypoint.sh"]

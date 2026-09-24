@@ -1,0 +1,20 @@
+FROM debian:bookworm-slim
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends openssh-server sudo ca-certificates \
+  && rm -rf /var/lib/apt/lists/* \
+  && mkdir -p /var/run/sshd /home/dshprobe/.ssh \
+  && useradd -m -s /bin/bash dshprobe \
+  && echo 'dshprobe ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/dshprobe \
+  && chmod 440 /etc/sudoers.d/dshprobe \
+  && chown -R dshprobe:dshprobe /home/dshprobe/.ssh \
+  && chmod 700 /home/dshprobe/.ssh \
+  && sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config \
+  && sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config \
+  && echo 'AllowUsers dshprobe' >> /etc/ssh/sshd_config
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 22
+CMD ["/entrypoint.sh"]
