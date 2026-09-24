@@ -1,0 +1,28 @@
+- insert:
+    - id: dsh-remote-ssh
+      name: dsh-remote-ssh
+      config:
+        enabled: true
+        timeoutMs: 60000
+        maxOutputChars: 40000
+        hosts: []
+        allowCommands:
+          - uname
+          - hostname
+          - uptime
+          - df
+          - free
+          - ls
+          - cat
+          - head
+          - tail
+          - wc
+          - ps
+          - oslevel
+          - errpt
+          - lsps
+          - lparstat
+          - vmstat
+          - sw_vers
+          - system_profiler
+        allowMutate: false

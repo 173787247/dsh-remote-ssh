@@ -1,0 +1,14 @@
+{
+  "name": "dsh-remote-ssh",
+  "version": "0.1.0",
+  "description": "DeepSeek Harness plugin: allowlisted SSH to Unix/AIX/macOS hosts (read-only by default).",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/173787247/dsh-remote-ssh.git" },
+  "type": "module",
+  "main": "index.js",
+  "engines": { "node": ">=18" },
+  "scripts": { "test": "node --test test/*.test.js" },
+  "files": ["index.js", "lib", "cordis.patch.yml", "README.md", "README.en.md", "README.zh.md", "LICENSE", "CHANGELOG.md", "examples", "docs"],
+  "keywords": ["dsh-plugin", "deepseek-harness", "ssh", "aix", "unix", "macos"],
+  "dsh": { "bundle": { "patch": "./cordis.patch.yml" } }
+}

@@ -1,0 +1,15 @@
+# Merge into profile cordis.patch.yml under dsh-remote-ssh config:
+hosts:
+  - id: aix-prod
+    host: 10.10.1.20
+    user: dshprobe
+    port: 22
+    os: aix
+  - id: mac-desk
+    host: 192.168.1.50
+    user: you
+    os: darwin
+  - id: linux-lab
+    host: lab.example.com
+    user: ubuntu
+    os: linux
