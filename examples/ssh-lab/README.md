@@ -29,13 +29,15 @@ ssh -i keys\id_ed25519 -p 2223 -o StrictHostKeyChecking=no dshprobe@127.0.0.1 "o
 
 Copy the snippet from `hosts.snippet.yml` into the web profile `cordis.patch.yml` under `dsh-remote-ssh` config.
 
-Point SSH at the lab key:
+**Key permissions:** OpenSSH rejects private keys on `/mnt/c/...` (mode 0777). Copy into WSL first:
 
 ```sh
-# WSL
-export IDENTITY="$PWD/keys/id_ed25519"   # or absolute /mnt/c/... path
-# ssh already used by the plugin; ensure agent has the key OR use ~/.ssh/config Host entries
+mkdir -p ~/.ssh/dsh-lab
+cp /mnt/c/Users/rchua/Desktop/AIFullStackDevelopment/dsh-remote-ssh/examples/ssh-lab/keys/id_ed25519 ~/.ssh/dsh-lab/
+chmod 700 ~/.ssh/dsh-lab && chmod 600 ~/.ssh/dsh-lab/id_ed25519
 ```
+
+Then set `identityFile: /home/YOURUSER/.ssh/dsh-lab/id_ed25519` (see `hosts.snippet.yml`).
 
 Recommended `~/.ssh/config` (WSL):
 
@@ -44,14 +46,14 @@ Host dsh-linux-lab
   HostName 127.0.0.1
   Port 2222
   User dshprobe
-  IdentityFile /mnt/c/Users/rchua/Desktop/AIFullStackDevelopment/dsh-remote-ssh/examples/ssh-lab/keys/id_ed25519
+  IdentityFile ~/.ssh/dsh-lab/id_ed25519
   StrictHostKeyChecking no
 
 Host dsh-aix-stub
   HostName 127.0.0.1
   Port 2223
   User dshprobe
-  IdentityFile /mnt/c/Users/rchua/Desktop/AIFullStackDevelopment/dsh-remote-ssh/examples/ssh-lab/keys/id_ed25519
+  IdentityFile ~/.ssh/dsh-lab/id_ed25519
   StrictHostKeyChecking no
 ```
 

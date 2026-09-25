@@ -7,13 +7,14 @@ hosts:
     user: dshprobe
     port: 2222
     os: linux
-    identityFile: /mnt/c/Users/rchua/Desktop/AIFullStackDevelopment/dsh-remote-ssh/examples/ssh-lab/keys/id_ed25519
+    # Copy key into WSL (~/.ssh) with mode 600 — /mnt/c keys are 0777 and OpenSSH rejects them.
+    identityFile: /home/rchua/.ssh/dsh-lab/id_ed25519
   - id: aix-stub
     host: 127.0.0.1
     user: dshprobe
     port: 2223
     os: aix
-    identityFile: /mnt/c/Users/rchua/Desktop/AIFullStackDevelopment/dsh-remote-ssh/examples/ssh-lab/keys/id_ed25519
+    identityFile: /home/rchua/.ssh/dsh-lab/id_ed25519
 
 # Optional Mac (real machine — replace host / user):
 #  - id: mac-mini
