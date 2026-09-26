@@ -23,6 +23,7 @@
           - lsps
           - lparstat
           - vmstat
+          - vm_stat
           - sw_vers
           - system_profiler
         allowMutate: false

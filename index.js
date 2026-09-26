@@ -3,6 +3,7 @@ import {
   resolveHost,
   assertAllowedCommand,
   runSsh,
+  probeSuite,
 } from "./lib/ssh.js";
 
 export const name = "dsh-remote-ssh";
@@ -108,5 +109,50 @@ export function apply(ctx, config = {}) {
     },
     presentCall: () => ({ card: "generic", title: "remote ssh run" }),
     presentResult: (_a, r) => ({ card: "generic", title: "remote ssh run", content: r.content }),
+  });
+
+  ctx.tools.register({
+    name: "remote_ssh_probe",
+    description:
+      "Run a fixed read-only probe suite (uname/uptime/df/…) on a host. Skips commands not in allowCommands.",
+    parameters: {
+      type: "object",
+      additionalProperties: false,
+      properties: {
+        hostId: { type: "string" },
+      },
+    },
+    output: {
+      schema: { type: "object", additionalProperties: true },
+      render: (_a, v) => [{ type: "text", text: JSON.stringify(v, null, 2) }],
+    },
+    timeoutMs: timeoutMs * 4,
+    isConcurrencySafe: () => true,
+    async execute(args) {
+      try {
+        const host = resolveHost(hosts, args.hostId);
+        const suite = probeSuite(host.os);
+        const results = [];
+        for (const argv of suite) {
+          try {
+            const allowed = assertAllowedCommand(argv, allowCommands);
+            const r = await runSsh(host, allowed, { timeoutMs, maxOutputChars });
+            results.push({ argv: allowed, ok: r.code === 0, stdout: r.stdout, stderr: r.stderr });
+          } catch (e) {
+            results.push({
+              argv,
+              ok: false,
+              skipped: true,
+              error: e instanceof Error ? e.message : String(e),
+            });
+          }
+        }
+        return { ok: true, hostId: host.id, os: host.os, results };
+      } catch (e) {
+        return { ok: false, error: e instanceof Error ? e.message : String(e) };
+      }
+    },
+    presentCall: () => ({ card: "generic", title: "remote ssh probe" }),
+    presentResult: (_a, r) => ({ card: "generic", title: "remote ssh probe", content: r.content }),
   });
 }

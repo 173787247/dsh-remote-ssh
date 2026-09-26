@@ -25,4 +25,10 @@ describe("remote-ssh guards", () => {
       /confirm/,
     );
   });
+  it("probeSuite varies by os", async () => {
+    const { probeSuite } = await import("../lib/ssh.js");
+    assert.ok(probeSuite("linux").some((a) => a[0] === "free"));
+    assert.ok(probeSuite("aix").some((a) => a[0] === "oslevel"));
+    assert.ok(probeSuite("darwin").some((a) => a[0] === "sw_vers"));
+  });
 });
