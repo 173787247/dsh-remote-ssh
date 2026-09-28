@@ -3,3 +3,10 @@ node_modules/
 .DS_Store
 .env
 .env.*
+
+# ── 凭据补全 ─────────────────────────────────────────────────
+# 只写 `.env` 挡不住 examples/test.env 这种文件名；`*.env` 才挡得住。
+# .gitignore 只防手滑，且一旦推上去就永久在历史里。
+*.env
+!*.env.example
+!*.env.template
