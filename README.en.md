@@ -12,7 +12,7 @@ Allowlisted **SSH** from the dsh host into Unix / IBM AIX / macOS.
 |-------|-------|
 | **Plugin** | `dsh-remote-ssh` **0.1.0** |
 | **Minimum dsh** | ≥ **0.1.2** |
-| **Latest verified** | See [dsh-wsl-kit Compatibility](https://github.com/173787247/dsh-wsl-kit#compatibility-2026-09) (currently **`0.1.7-alpha.2`**) |
+| **Latest verified** | See [dsh-wsl-kit Compatibility](https://github.com/173787247/dsh-wsl-kit#compatibility-2026-09) (currently **`0.2.0-rc.2`**) |
 | **Kit set** | optional (remote bridge) |
 
 ## Tools

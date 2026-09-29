@@ -12,7 +12,7 @@
 |------|----|
 | **插件** | `dsh-remote-ssh` **0.1.0** |
 | **最低 dsh** | ≥ **0.1.2** |
-| **最新验证** | 以 [dsh-wsl-kit 兼容性](https://github.com/173787247/dsh-wsl-kit#compatibility-2026-09) 为准（当前 **`0.1.7-alpha.2`**） |
+| **最新验证** | 以 [dsh-wsl-kit 兼容性](https://github.com/173787247/dsh-wsl-kit#compatibility-2026-09) 为准（当前 **`0.2.0-rc.2`**） |
 | **套件档位** | 可选（远程桥接） |
 
 ## 工具
