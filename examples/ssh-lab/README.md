@@ -33,7 +33,7 @@ Copy the snippet from `hosts.snippet.yml` into the web profile `cordis.patch.yml
 
 ```sh
 mkdir -p ~/.ssh/dsh-lab
-cp /mnt/c/Users/rchua/Desktop/AIFullStackDevelopment/dsh-remote-ssh/examples/ssh-lab/keys/id_ed25519 ~/.ssh/dsh-lab/
+cp examples/ssh-lab/keys/id_ed25519 ~/.ssh/dsh-lab/
 chmod 700 ~/.ssh/dsh-lab && chmod 600 ~/.ssh/dsh-lab/id_ed25519
 ```
 
