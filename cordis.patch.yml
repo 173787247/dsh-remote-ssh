@@ -1,6 +1,6 @@
 - insert:
     - id: dsh-remote-ssh
-      name: dsh-remote-ssh
+      name: dsh-remote-ssh-run
       config:
         enabled: true
         timeoutMs: 60000

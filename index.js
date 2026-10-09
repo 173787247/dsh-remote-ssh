@@ -6,7 +6,7 @@ import {
   probeSuite,
 } from "./lib/ssh.js";
 
-export const name = "dsh-remote-ssh";
+export const name = "dsh-remote-ssh-run";
 export const inject = ["tools", "systemPrompt"];
 
 function positive(v, d) {
